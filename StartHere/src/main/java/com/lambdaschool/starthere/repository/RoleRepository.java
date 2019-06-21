@@ -10,7 +10,7 @@ public interface RoleRepository extends CrudRepository<Role, Long>
 {
     @Transactional
     @Modifying
-    @Query(value = "DELETE from UserRoles where userid = :userid")
+    @Query(value = "DELETE from UserRoles where userid = :userid", nativeQuery = true)
     void deleteUserRolesByUserId(long userid);
 
     @Transactional
