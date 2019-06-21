@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "authors")
+@Table(name = "author")
 public class Author {
 
     @Id
@@ -15,26 +15,26 @@ public class Author {
     private long authorid;
 
     @Column(nullable = false)
-    private String lastname;
+    private String lname;
 
     @Column(nullable = false)
-    private String firstname;
+    private String fname;
 
     @ManyToMany
-    @JoinTable(name = "bookauthors",
+    @JoinTable(name = "wrote",
                 joinColumns = {@JoinColumn(name = "authorid")},
                 inverseJoinColumns = {@JoinColumn(name = "bookid")})
     @JsonIgnoreProperties("authors")
     private List<Book> books = new ArrayList<>();
 
-    private boolean audit;
+    private String audit;
 
     public Author() {
     }
 
-    public Author(String lastname, String firstname, List<Book> books, boolean audit) {
-        this.lastname = lastname;
-        this.firstname = firstname;
+    public Author(String lastname, String firstname, List<Book> books, String audit) {
+        this.lname = lastname;
+        this.fname = firstname;
         this.books = books;
         this.audit = audit;
     }
@@ -48,19 +48,19 @@ public class Author {
     }
 
     public String getLastname() {
-        return lastname;
+        return lname;
     }
 
     public void setLastname(String lastname) {
-        this.lastname = lastname;
+        this.lname = lastname;
     }
 
     public String getFirstname() {
-        return firstname;
+        return fname;
     }
 
     public void setFirstname(String firstname) {
-        this.firstname = firstname;
+        this.fname = firstname;
     }
 
     public List<Book> getBooks() {
@@ -71,11 +71,11 @@ public class Author {
         this.books = books;
     }
 
-    public boolean isAudit() {
+    public String isAudit() {
         return audit;
     }
 
-    public void setAudit(boolean audit) {
+    public void setAudit(String audit) {
         this.audit = audit;
     }
 }

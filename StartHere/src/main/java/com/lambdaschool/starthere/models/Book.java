@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "books")
+@Table(name = "book")
 public class Book {
 
     @Id
@@ -18,25 +18,30 @@ public class Book {
     private String title;
 
     @Column(nullable = false)
-    private Integer isbn;
+    private String ISBN;
 
-    @Column(nullable = false)
     private Integer copy;
 
     @ManyToMany(mappedBy = "books")
     @JsonIgnoreProperties("books")
     private List<Author> authors = new ArrayList<>();
 
-    private boolean audit;
+    @ManyToOne
+    @JoinColumn(name = "sectionid")
+    @JsonIgnoreProperties("sectionid")
+    private Section section;
+
+    private String audit;
 
     public Book() {
     }
 
-    public Book(String title, Integer isbn, Integer copy, List<Author> authors, boolean audit) {
+    public Book(String title, String ISBN, Integer copy, List<Author> authors, Section section, String audit) {
         this.title = title;
-        this.isbn = isbn;
+        this.ISBN = ISBN;
         this.copy = copy;
         this.authors = authors;
+        this.section = section;
         this.audit = audit;
     }
 
@@ -56,12 +61,12 @@ public class Book {
         this.title = title;
     }
 
-    public Integer getIsbn() {
-        return isbn;
+    public String getISBN() {
+        return ISBN;
     }
 
-    public void setIsbn(Integer isbn) {
-        this.isbn = isbn;
+    public void setISBN(String ISBN) {
+        this.ISBN = ISBN;
     }
 
     public Integer getCopy() {
@@ -80,11 +85,19 @@ public class Book {
         this.authors = authors;
     }
 
-    public boolean isAudit() {
+    public Section getSection() {
+        return section;
+    }
+
+    public void setSection(Section section) {
+        this.section = section;
+    }
+
+    public String isAudit() {
         return audit;
     }
 
-    public void setAudit(boolean audit) {
+    public void setAudit(String audit) {
         this.audit = audit;
     }
 }
